@@ -52,6 +52,12 @@ extern void using_history(void);
 extern HISTORY_STATE *history_get_history_state(void);
 extern void history_set_history_state(const HISTORY_STATE *state);
 
+/* Get/set internal state information. */
+extern void clear_history(void);
+extern void stifle_history(int);
+extern int unstifle_history(void);
+extern int history_is_stifled(void);
+
 /* Lifecycle of history entries (HIST_ENTRY). */
 extern HIST_ENTRY *alloc_history_entry(const char *line, const char *timestamp);
 extern HIST_ENTRY *copy_history_entry(const HIST_ENTRY *entry);

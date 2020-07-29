@@ -51,6 +51,36 @@ history_set_history_state(const HISTORY_STATE *state)
 	current_state = __history_state_copy(state);
 }
 
+void
+clear_history(void)
+{
+	for (size_t i = 0; current_state->entries[i] != NULL; i++)
+	{
+		free_history_entry(current_state->entries[i]);
+		current_state->entries[i] = NULL;
+	}
+}
+
+void
+stifle_history(int size)
+{
+	current_state->flags |= HS_STIFLED;
+	current_state->size = size;
+}
+
+int
+unstifle_history(void)
+{
+	current_state->flags &= ~HS_STIFLED;
+	return current_state->size;
+}
+
+int
+history_is_stifled(void)
+{
+	return current_state->flags & HS_STIFLED;
+}
+
 /* HIST_ENTRY lifecycle. */
 HIST_ENTRY *
 alloc_history_entry(const char *line, const char *timestamp)
