@@ -108,12 +108,8 @@ free_history_entry(HIST_ENTRY *entry)
 {
 	void *data = entry->data;
 
-	if (entry->timestamp != NULL)
-		free(entry->timestamp);
-
-	if (entry->line != NULL)
-		free(entry->line);
-
+	free(entry->timestamp);
+	free(entry->line);
 	free(entry);
 
 	return data;
